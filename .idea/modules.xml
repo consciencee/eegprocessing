@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../EEGrunt/.idea/EEGrunt.iml" filepath="$PROJECT_DIR$/../EEGrunt/.idea/EEGrunt.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/eegprocessing.iml" filepath="$PROJECT_DIR$/.idea/eegprocessing.iml" />
+    </modules>
+  </component>
+</project>
