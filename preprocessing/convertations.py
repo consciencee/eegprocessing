@@ -80,6 +80,9 @@ for input_fn in input_files:
       row_count = 0
 
       for line in data_contents:
+          if "---" in line: #in src files some analysis is provided in the end and contains some lines with multiple dashes,
+          # we must not parse it
+              break
           row_count = row_count + 1
           output = {}
           time_counter = time_counter + time_increment
