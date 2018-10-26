@@ -60,7 +60,7 @@ for input_fn in input_files:
       contents = input_file.readlines()
 
       input_sample_rate = re.sub(" +", " ", contents[input_sr_linenum - 1]).split(" ")[3]
-      input_ch_names = re.sub("[ \n]+", " ", contents[input_channels_names_linenum - 1]).split(" ")[1:-1]
+      input_ch_names = re.sub("[ \n\r]+", " ", contents[input_channels_names_linenum - 1]).split(" ")[1:-1]
       input_ch_indices = {i: e for i, e in enumerate(input_ch_names) if e in input_headers}
 
       if(len(input_ch_indices) == 0):
@@ -75,7 +75,7 @@ for input_fn in input_files:
       output_csv_file = open(os.path.join(output_path,output_fn), 'wb')
       csv_output = csv.DictWriter(output_csv_file, fieldnames=output_headers, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
-      data_contents = contents[input_data_firstline_linenum - 1:]
+      data_contents = contents[input_data_firstline_linenum - 1:-1]
 
       row_count = 0
 
@@ -84,9 +84,14 @@ for input_fn in input_files:
           output = {}
           time_counter = time_counter + time_increment
           output['Time'] = time_counter
-          all_channels_data = re.sub("[ \n]+", " ", line).split(" ")[1:-1]
+          all_channels_data = re.sub("[ \n\r]+", " ", line).split(" ")[1:-1]
+          #print "Current data ", all_channels_data, " row #", row_count
           for i, name in input_ch_indices.iteritems():
-              output[name] = all_channels_data[i]
+              try:
+                  output[name] = all_channels_data[i]
+              except IndexError:
+                  print "index error ", name, i, line, all_channels_data, row_count, len(data_contents)
+                  exit(1)
           output_data.append(output)
 
       headers_text = {}
