@@ -3,6 +3,8 @@ import os
 import sys
 import re
 
+# convert edf-txt to csv with extracting exact columns
+
 ''' CONFIG '''
 
 # PATHS
