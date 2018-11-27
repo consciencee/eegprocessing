@@ -1,4 +1,5 @@
 import csv
+import pandas as pd
 
 def load_ecg_as_list(filename):
     input_file = open(filename, 'rb')
@@ -10,5 +11,8 @@ def load_ecg_as_list(filename):
             ecg_data.append(row['ECG'])
         row_cnt += 1
 
-    print ecg_data
     return ecg_data
+
+def load_ecg_as_df(filename):
+    df = pd.read_csv(filename)
+    return df
